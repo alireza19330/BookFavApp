@@ -1,5 +1,5 @@
 Project Technology Stack:
-Spring, Spring Boot, Spring MVC, MySQL, JPA, Thymeleaf, CSS, HTML, MAVEN
+Spring, Spring Boot, Spring MVC, MySQL/h2, JPA, Thymeleaf, CSS, HTML, MAVEN
 ______________________________________
 Using maven to install:
 mvn clean install
