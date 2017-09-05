@@ -63,6 +63,11 @@
 			<artifactId>nekohtml</artifactId>
 			<version>1.9.21</version><!--$NO-MVN-MAN-VER$ -->
 		</dependency>
+		<!-- H2 Database -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
