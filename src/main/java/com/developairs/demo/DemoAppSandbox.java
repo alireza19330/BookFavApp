@@ -2,6 +2,8 @@ package com.developairs.demo;
 
 import javax.annotation.PostConstruct;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,14 +15,16 @@ import com.developairs.demo.service.UserService;
 
 @Component
 public class DemoAppSandbox {
-	
-	
+
+
 	@Autowired
 	private BookService bookService;
-	
+
 	@Autowired
 	private UserService userService;
-	
+
+    private static Logger logger = LoggerFactory.getLogger(DemoAppSandbox.class);
+    
 	@PostConstruct
 	public void init(){
 		addRole();
@@ -30,7 +34,7 @@ public class DemoAppSandbox {
 
 	@Autowired
 	private RoleService roleService;
-	
+
 	private void addRole() {
 		Role adminRole = new Role();
 		adminRole.setRole("ADMIN");
@@ -38,20 +42,27 @@ public class DemoAppSandbox {
 	}
 
 	private void retriveBooks() {
-		System.out.println("Books list:"+bookService.findAllBooks());
+		logger.debug("The number of books in db:"+bookService.findAllBooks().size());
 	}
 
 	private void addBooks() {
-		
+
 		int numOfBooks = 100;
-		for (int i = 0; i < numOfBooks; i++) {
-			Book book = new Book();
-			book.setAuthor("author"+i);
-			book.setName("title"+i);
-			book.setIsbn((123456780+i));
-			bookService.saveBook(book);
+		logger.debug("Adding" + numOfBooks + " Books started...");
+		try{
+			for (int i = 0; i < numOfBooks; i++) {
+				Book book = new Book();
+				book.setAuthor("author"+i);
+				book.setName("title"+i);
+				book.setIsbn((123456780+i));
+				bookService.saveBook(book);
+			}
+		}catch(Exception e){
+			logger.error("Unable to insert books: "+e.getMessage());
+			return;
 		}
-		
-		System.out.println(numOfBooks + "Books added.");
+		logger.debug(numOfBooks + " books added.");
+		//System.out.println(numOfBooks + "Books added.");
 	}
+
 }
